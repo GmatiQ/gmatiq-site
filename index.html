@@ -457,6 +457,64 @@
     margin-top: 24px;
   }
 </style>
+  @media (max-width: 700px) {
+  .nav-inner {
+    flex-wrap: wrap;
+    gap: 12px;
+    padding: 14px 0;
+  }
+
+  .brand img {
+    height: 42px !important;
+    width: auto;
+  }
+
+  .brand span {
+    font-size: 24px;
+  }
+
+  .nav-links {
+    width: 100%;
+    order: 3;
+    display: flex;
+    justify-content: flex-start;
+    gap: 18px;
+    font-size: 14px;
+  }
+
+  .btn.btn-dark {
+    padding: 12px 16px;
+    font-size: 14px;
+  }
+
+  .hero {
+    padding-top: 48px;
+  }
+
+  h1 {
+    font-size: 64px;
+    line-height: 0.95;
+  }
+
+  .sub {
+    font-size: 18px;
+  }
+
+  .hero-grid {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+
+  .hero-card {
+    order: 2;
+  }
+
+  .hero-mark {
+    width: 120px;
+    max-width: 32vw;
+    margin-top: 18px;
+  }
+}
 </head>
 <body>
   <header class="nav">
