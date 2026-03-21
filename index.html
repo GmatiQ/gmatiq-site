@@ -1,100 +1,622 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>GmatiQ</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Operational clarity. Total control. Built on operational intelligence." />
   <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #f8f8f8;
-      color: #111;
-      padding: 80px 40px;
+    :root {
+      --bg: #f3f1ec;
+      --panel: #faf8f3;
+      --text: #111111;
+      --muted: #5f5b53;
+      --line: rgba(17, 17, 17, 0.12);
+      --black: #111111;
+      --white: #ffffff;
     }
 
-    .container {
-      max-width: 900px;
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .wrap {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 28px;
+    }
+
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: rgba(243, 241, 236, 0.9);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      padding: 18px 0;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      font-size: 32px;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+    }
+
+    .brand img {
+      width: 56px;
+      height: 56px;
+      object-fit: contain;
+      display: block;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 34px;
+      align-items: center;
+      font-size: 16px;
+      color: var(--muted);
+    }
+
+    .nav-links a:hover {
+      color: var(--text);
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 15px 22px;
+      border-radius: 14px;
+      font-size: 15px;
+      font-weight: 600;
+      transition: 0.18s ease;
+    }
+
+    .btn-dark {
+      background: var(--black);
+      color: var(--white);
+      border: 1px solid var(--black);
+    }
+
+    .btn-dark:hover {
+      opacity: 0.9;
+    }
+
+    .btn-light {
+      border: 1px solid var(--line);
+      background: transparent;
+      color: var(--text);
+    }
+
+    .btn-light:hover {
+      background: var(--black);
+      color: var(--white);
+      border-color: var(--black);
+    }
+
+    .hero {
+      padding: 90px 0 80px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 48px;
+      align-items: center;
+    }
+
+    .eyebrow {
+      margin: 0 0 18px;
+      font-size: 12px;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: var(--muted);
     }
 
     h1 {
-      font-size: 72px;
-      margin-bottom: 20px;
-      line-height: 1;
+      margin: 0;
+      font-size: clamp(60px, 10vw, 118px);
+      line-height: 0.94;
+      letter-spacing: -0.06em;
     }
 
     .sub {
-      font-size: 22px;
-      color: #444;
-      margin-bottom: 50px;
+      max-width: 620px;
+      margin: 28px 0 0;
+      font-size: 24px;
+      line-height: 1.35;
+      color: var(--muted);
     }
 
-    .buttons a {
-      display: inline-block;
-      margin-right: 12px;
-      padding: 14px 24px;
-      border-radius: 8px;
-      text-decoration: none;
-      font-size: 16px;
+    .hero-actions {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-top: 42px;
     }
 
-    .primary {
-      background: #111;
-      color: #fff;
+    .hero-card {
+      border: 1px solid var(--line);
+      border-radius: 28px;
+      background: linear-gradient(180deg, #111 0%, #1b1b1b 100%);
+      padding: 18px;
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.14);
     }
 
-    .secondary {
-      border: 1px solid #111;
-      color: #111;
+    .hero-card-inner {
+      border-radius: 22px;
+      padding: 26px;
+      background: linear-gradient(180deg, #1a1a1a 0%, #0f0f0f 100%);
+      color: #f1f1f1;
+    }
+
+    .card-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 22px;
+      font-size: 12px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.58);
+    }
+
+    .pill {
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 999px;
+      padding: 7px 10px;
+      font-size: 11px;
+      letter-spacing: 0.12em;
+    }
+
+    .stat-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+    }
+
+    .stat {
+      border-radius: 18px;
+      background: rgba(255,255,255,0.05);
+      padding: 18px;
+    }
+
+    .stat-label {
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.48);
+    }
+
+    .stat-value {
+      margin-top: 10px;
+      font-size: 34px;
+      font-weight: 700;
+      letter-spacing: -0.04em;
+    }
+
+    .stat-note {
+      margin-top: 6px;
+      font-size: 14px;
+      color: rgba(255,255,255,0.62);
+    }
+
+    .flow {
+      grid-column: 1 / -1;
+    }
+
+    .flow-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      border-radius: 14px;
+      background: rgba(255,255,255,0.05);
+      padding: 14px 16px;
+      margin-top: 10px;
+      font-size: 14px;
+    }
+
+    .flow-row span:last-child {
+      color: rgba(255,255,255,0.58);
     }
 
     .section {
-      margin-top: 80px;
+      padding: 90px 0;
+      border-top: 1px solid var(--line);
+    }
+
+    .section-head {
+      max-width: 760px;
+      margin-bottom: 34px;
     }
 
     .section h2 {
-      font-size: 28px;
-      margin-bottom: 20px;
+      margin: 0;
+      font-size: clamp(36px, 6vw, 64px);
+      line-height: 0.98;
+      letter-spacing: -0.05em;
     }
 
-    .block {
-      margin-bottom: 14px;
+    .section-copy {
+      margin-top: 18px;
+      font-size: 21px;
+      line-height: 1.45;
+      color: var(--muted);
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .card {
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      background: var(--panel);
+      padding: 28px;
+    }
+
+    .card-kicker {
+      font-size: 12px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .card h3 {
+      margin: 16px 0 0;
+      font-size: 30px;
+      letter-spacing: -0.04em;
+    }
+
+    .card p {
+      margin: 14px 0 0;
       font-size: 18px;
-      color: #333;
+      line-height: 1.5;
+      color: var(--muted);
     }
 
+    .steps {
+      display: grid;
+      gap: 16px;
+    }
+
+    .step {
+      display: grid;
+      grid-template-columns: 88px 1fr;
+      gap: 18px;
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      background: var(--panel);
+      padding: 24px;
+      align-items: start;
+    }
+
+    .step-num {
+      border-radius: 16px;
+      background: var(--black);
+      color: var(--white);
+      text-align: center;
+      padding: 14px 10px;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+    }
+
+    .step h3 {
+      margin: 0;
+      font-size: 30px;
+      letter-spacing: -0.04em;
+    }
+
+    .step p {
+      margin: 10px 0 0;
+      font-size: 18px;
+      line-height: 1.5;
+      color: var(--muted);
+    }
+
+    .dark {
+      background: #111111;
+      color: #f1f1f1;
+    }
+
+    .dark .section-copy,
+    .dark .card p,
+    .dark .card-kicker {
+      color: rgba(255,255,255,0.7);
+    }
+
+    .dark .card {
+      background: rgba(255,255,255,0.04);
+      border-color: rgba(255,255,255,0.09);
+    }
+
+    .cta {
+      padding: 90px 0;
+    }
+
+    .cta-box {
+      border-radius: 32px;
+      background: #111111;
+      color: #ffffff;
+      padding: 42px;
+      box-shadow: 0 28px 80px rgba(0,0,0,0.14);
+    }
+
+    .cta-box h2 {
+      margin: 0;
+      font-size: clamp(38px, 6vw, 64px);
+      line-height: 0.98;
+      letter-spacing: -0.05em;
+    }
+
+    .cta-box p {
+      margin: 18px 0 0;
+      max-width: 780px;
+      font-size: 20px;
+      line-height: 1.5;
+      color: rgba(255,255,255,0.72);
+    }
+
+    .cta-actions {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-top: 30px;
+    }
+
+    .cta-box .btn-light {
+      border-color: rgba(255,255,255,0.2);
+      color: #ffffff;
+    }
+
+    .cta-box .btn-light:hover {
+      background: #ffffff;
+      color: #111111;
+      border-color: #ffffff;
+    }
+
+    .footer {
+      border-top: 1px solid var(--line);
+      padding: 26px 0 40px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .footer-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    @media (max-width: 920px) {
+      .hero-grid,
+      .cards {
+        grid-template-columns: 1fr;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .hero {
+        padding-top: 64px;
+      }
+
+      .step {
+        grid-template-columns: 1fr;
+      }
+
+      .sub {
+        font-size: 20px;
+      }
+
+      .brand {
+        font-size: 24px;
+      }
+
+      .brand img {
+        width: 48px;
+        height: 48px;
+      }
+    }
   </style>
 </head>
 <body>
-  <div class="container">
+  <header class="nav">
+    <div class="wrap nav-inner">
+      <a class="brand" href="#">
+        <img src="logo.png" alt="GmatiQ logo" />
+        <span>GmatiQ</span>
+      </a>
 
-    <h1>Operational clarity.<br>Total control.</h1>
-    <div class="sub">Built on operational intelligence.</div>
+      <nav class="nav-links">
+        <a href="#system">System</a>
+        <a href="#how">How it works</a>
+        <a href="#about">About</a>
+      </nav>
 
-    <div class="buttons">
-      <a href="mailto:hello@gmatiq.com" class="primary">Request access</a>
-      <a href="#" class="secondary">View system</a>
+      <a class="btn btn-dark" href="mailto:hello@gmatiq.com">Request demo</a>
     </div>
+  </header>
 
-    <div class="section">
-      <h2>What it is</h2>
-      <div class="block">
-        GmatiQ is an operating system for real-world execution — built to bring structure, visibility, and control to complex operations.
+  <main>
+    <section class="hero">
+      <div class="wrap hero-grid">
+        <div>
+          <p class="eyebrow">Operating system for real-world execution</p>
+          <h1>Operational clarity.<br>Total control.</h1>
+          <p class="sub">Built on operational intelligence.</p>
+
+          <div class="hero-actions">
+            <a class="btn btn-dark" href="#system">View system</a>
+            <a class="btn btn-light" href="mailto:hello@gmatiq.com">Request access</a>
+          </div>
+        </div>
+
+        <div class="hero-card">
+          <div class="hero-card-inner">
+            <div class="card-top">
+              <span>GmatiQ system</span>
+              <span class="pill">Live</span>
+            </div>
+
+            <div class="stat-grid">
+              <div class="stat">
+                <div class="stat-label">Build</div>
+                <div class="stat-value">12</div>
+                <div class="stat-note">Active jobs</div>
+              </div>
+
+              <div class="stat">
+                <div class="stat-label">Ledger</div>
+                <div class="stat-value">$148K</div>
+                <div class="stat-note">Tracked value</div>
+              </div>
+
+              <div class="stat flow">
+                <div class="stat-label">Flow</div>
+                <div class="flow-row">
+                  <span>Capture</span>
+                  <span>Text / voice / photo</span>
+                </div>
+                <div class="flow-row">
+                  <span>Structure</span>
+                  <span>Projects / costs / tasks</span>
+                </div>
+                <div class="flow-row">
+                  <span>Control</span>
+                  <span>Visibility / decisions</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
+    </section>
 
-    <div class="section">
-      <h2>What it does</h2>
-      <div class="block">• Track projects, materials, and labour</div>
-      <div class="block">• Understand costs, margins, and performance</div>
-      <div class="block">• Structure tasks, inputs, and execution</div>
-    </div>
+    <section id="system" class="section">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>One system. Three layers.</h2>
+          <p class="section-copy">GmatiQ is built to structure work, tighten control, and reduce friction across real operations.</p>
+        </div>
 
-    <div class="section">
-      <h2>Why it matters</h2>
-      <div class="block">Most operations are fragmented, manual, and unclear.</div>
-      <div class="block">GmatiQ unifies everything into one system — with clarity and control.</div>
-    </div>
+        <div class="cards">
+          <div class="card">
+            <div class="card-kicker">Layer 01</div>
+            <h3>Build</h3>
+            <p>Track projects, materials, labour, and field activity with clean structure.</p>
+          </div>
 
-  </div>
+          <div class="card">
+            <div class="card-kicker">Layer 02</div>
+            <h3>Ledger</h3>
+            <p>Understand costs, margins, totals, and performance without spreadsheet chaos.</p>
+          </div>
+
+          <div class="card">
+            <div class="card-kicker">Layer 03</div>
+            <h3>Flow</h3>
+            <p>Capture tasks, inputs, and decisions so execution stays visible and controlled.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="how" class="section">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>Simple input. Clear output.</h2>
+          <p class="section-copy">Designed to turn scattered information into structured action.</p>
+        </div>
+
+        <div class="steps">
+          <div class="step">
+            <div class="step-num">01</div>
+            <div>
+              <h3>Capture</h3>
+              <p>Add information by text, voice, image, or manual entry.</p>
+            </div>
+          </div>
+
+          <div class="step">
+            <div class="step-num">02</div>
+            <div>
+              <h3>Structure</h3>
+              <p>Organize data into projects, finances, and workflows automatically.</p>
+            </div>
+          </div>
+
+          <div class="step">
+            <div class="step-num">03</div>
+            <div>
+              <h3>Control</h3>
+              <p>Use live visibility to manage execution with less friction and less drift.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="about" class="section dark">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>Built from real operations.</h2>
+          <p class="section-copy">GmatiQ was shaped through construction, estimating, finance tracking, and field execution — not theory. It exists to reduce friction, tighten control, and make complex work easier to run.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta">
+      <div class="wrap">
+        <div class="cta-box">
+          <h2>Start building with clarity.</h2>
+          <p>Early access, demos, and collaboration inquiries.</p>
+
+          <div class="cta-actions">
+            <a class="btn btn-light" href="mailto:hello@gmatiq.com">hello@gmatiq.com</a>
+            <a class="btn btn-light" href="mailto:hello@gmatiq.com">Request demo</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap footer-inner">
+      <div>GmatiQ</div>
+      <div>Operational clarity. Total control.</div>
+    </div>
+  </footer>
 </body>
 </html>
